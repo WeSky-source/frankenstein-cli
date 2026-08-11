@@ -29,21 +29,30 @@ Not a great fit if you want a full multi-agent product with analytics, cross-mod
 
 ## Install
 
+### The easy way
+
+Open the same terminal window you already run `claude` in, paste this, hit enter:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/WeSky-source/frankenstein-cli/master/bootstrap.sh | bash
+```
+
+That's the whole install. It downloads everything, asks you one yes/no question (whether to include the personal `islamic-foundation` skill — everything else works fine without it), and tells you when it's done. No `git clone`, no `chmod`, no manually copying files around.
+
+It's also safe to run again later — it never deletes anything of yours. If a file it wants to install already exists, it backs up the old one with a timestamp first, and only touches `settings.json` if you don't already have one.
+
+**Not comfortable piping a script straight into bash?** That's a reasonable thing to be careful about. Read [`bootstrap.sh`](bootstrap.sh) and [`install.sh`](install.sh) first — both are short, plain bash, nothing hidden — or use the manual steps below instead.
+
+<details>
+<summary>Manual install (more steps, more visibility at each one)</summary>
+
 ```bash
 git clone https://github.com/WeSky-source/frankenstein-cli.git
 cd frankenstein-cli
 ./install.sh
 ```
 
-The installer:
-- backs up anything it would overwrite, timestamped, and never deletes your existing files
-- asks before installing the personal `islamic-foundation` skill — everything else works fine without it
-- wires hooks and MCP servers into `settings.json` only if you don't already have one there
-- is safe to re-run any time
-- ends with a short list of things to try first
-
-<details>
-<summary>Prefer to do it by hand? Manual steps</summary>
+Or entirely by hand, no script at all:
 
 1. Copy `CLAUDE.md` to `~/.claude/CLAUDE.md`, edit the identity/stack sections to match you.
 2. Copy `skills/` and `commands/` into `~/.claude/skills/` and `~/.claude/commands/`.

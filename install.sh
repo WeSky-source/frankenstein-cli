@@ -45,7 +45,7 @@ ok "3 skills installed"
 echo
 echo -e "${DIM}islamic-foundation is the original author's personal ethical reasoning${RESET}"
 echo -e "${DIM}layer. Everything else here works fine without it — it's genuinely optional.${RESET}"
-read -r -p "$(echo -e "${CYAN}?${RESET} Install islamic-foundation skill too? [y/N] ")" reply
+read -r -p "$(echo -e "${CYAN}?${RESET} Install islamic-foundation skill too? [y/N] ")" reply || reply="n"
 if [[ "${reply:-}" =~ ^[Yy]$ ]]; then
   mkdir -p "$CLAUDE_DIR/skills/islamic-foundation"
   backup_if_exists "$CLAUDE_DIR/skills/islamic-foundation/SKILL.md"
