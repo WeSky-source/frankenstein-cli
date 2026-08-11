@@ -40,7 +40,11 @@ echo -e "${GREEN}✓${RESET} Downloaded. Handing off to the installer...\n"
 # Piping this whole script into bash consumes stdin, so install.sh's
 # yes/no prompt would otherwise silently get skipped (read hits EOF).
 # Reattach the real terminal explicitly when one exists.
-if [ -r /dev/tty ]; then
+# `[ -r /dev/tty ]` only checks permission bits — the device node can exist
+# and pass that check with no controlling terminal actually behind it (CI,
+# containers, some sandboxes), which crashes a plain redirect. Try to
+# actually open it in a no-op subshell first and fall back on failure.
+if ( : < /dev/tty ) 2>/dev/null; then
   bash "$EXTRACTED_DIR/install.sh" < /dev/tty
 else
   bash "$EXTRACTED_DIR/install.sh"
